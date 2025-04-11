@@ -1,11 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Onion.Application.Features.CQRS.Commends;
 using Onion.Application.Features.CQRS.Handlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Onion.Application.Extansions
 {
@@ -15,7 +9,14 @@ namespace Onion.Application.Extansions
         {
             services.AddAutoMapper(typeof(ServiceRegistrations).Assembly);
 
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(ServiceRegistrations).Assembly); 
+                   
+            });
+
             services.AddScoped<GetCategoryQueryHandler>();
+
 
             services.AddScoped<GetCategoryByIdQueryHandler>();
             services.AddScoped<CreateCategoryCommandHandler>();
